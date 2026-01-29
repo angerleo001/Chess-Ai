@@ -37,6 +37,6 @@ The layout automatically shifts for smaller screens, stacking the game controls 
 
 1. **Clone the repo:**
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/Chess-ai.git](https://github.com/YOUR_USERNAME/Chess-ai.git)
+   git clone https://github.com/angerleo001/Chess-Ai.git
 
 2. **Run the index.html file**
