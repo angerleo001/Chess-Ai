@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Premium Chess</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div id="promotion-overlay" class="overlay">
+        <div class="promotion-dialog">
+            <p>Choose Promotion</p>
+            <div class="promotion-options">
+                <div onclick="selectPromotion('q')">♛</div>
+                <div onclick="selectPromotion('r')">♜</div>
+                <div onclick="selectPromotion('b')">♝</div>
+                <div onclick="selectPromotion('n')">♞</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app">
+        <header class="top">
+            <h1>♚ Premium Chess</h1>
+            <p>Local play • Real rules • Learning AI</p>
+        </header>
+
+        <main class="layout">
+            <section id="board" class="board"></section>
+
+            <aside class="panel">
+                <div class="card">
+                    <h3>Game Mode</h3>
+                    <button id="aiBtn">Vs AI</button>
+                    <button id="pvpBtn" class="secondary">Local PvP</button>
+                </div>
+
+                <div class="card">
+                    <h3 class="status-header">
+                        <span style="margin-left: 45px;">Status:</span>
+                        <span id="status" style="color: var(--accent2);"></span>
+                    </h3>
+                    <div id="game-msg" class="in-card" style="color: var(--moved);">White's Move</div>
+                </div>
+
+                <div class="card">
+                    <button id="resetBtn" class="danger">Reset Game</button>
+                </div>
+            </aside>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

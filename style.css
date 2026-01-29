@@ -1,0 +1,282 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #325153;
+  --panel: #020617;
+  --border: #1e293b;
+  --light: #48626d;
+  --dark: #233042;
+  --accent: #22c5af;
+  --accent2: #1de61d;
+  --moved: #225bc5;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  background: radial-gradient(circle at top, #0f172a, #020617 70%);
+  color: #e5e7eb;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  width: 900px;
+  padding: 28px;
+  background: var(--panel);
+  border-radius: 24px;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, .8);
+}
+
+.top h1 {
+  margin: 0;
+}
+
+.top p {
+  opacity: .6;
+  margin: 4px 0 16px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: auto 260px;
+  gap: 4px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, 72px);
+  grid-template-rows: repeat(8, 72px);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid var(--border);
+}
+
+.square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  cursor: pointer;
+  transition: transform .1s, box-shadow .15s;
+}
+
+.square:hover {
+  transform: scale(1.04);
+}
+
+.light {
+  background: var(--light);
+  color: #020617;
+}
+
+.dark {
+  background: var(--dark);
+  color: #020617;
+}
+
+.selected {
+  box-shadow: inset 0 0 0 3px var(--accent);
+}
+
+.move {
+  box-shadow: inset 0 0 0 3px var(--accent2);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-left: 5px;
+}
+
+.card {
+  background: #020617;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.in-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  width: 90%;
+  padding: 12px;
+  border-radius: 115px;
+  border: none;
+  margin-left: 5%;
+  background: linear-gradient(135deg, var(--moved), #16a34a);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: linear-gradient(135deg, var(--accent2), #0284c7);
+  margin-top: 8px;
+}
+
+button.danger {
+  background: linear-gradient(135deg, #f87171, #dc2626);
+}
+
+.move:hover {
+  background-color: rgba(56, 189, 248, 0.3) !important;
+  box-shadow: inset 0 0 0 4px var(--accent2);
+}
+
+/* Add a glowing effect to the status when in Check */
+#status:contains("Check!") {
+  text-shadow: 0 0 8px #f87171;
+  font-weight: bold;
+}
+
+/* Previous Move Highlight */
+.last-move {
+  background-color: rgba(56, 189, 248, 0.25) !important;
+  box-shadow: inset 0 0 0 2px var(--moved);
+}
+
+/* Highlight the currently selected mode button */
+.active-mode {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+  transform: scale(1.02);
+  filter: brightness(1.2);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+/* Small label for the status card */
+.status-label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--moved);
+  margin-bottom: 2px;
+  letter-spacing: 1px;
+}
+
+.overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.promotion-dialog {
+  background: var(--panel);
+  padding: 20px;
+  border-radius: 18px;
+  border: 2px solid var(--accent2);
+  text-align: center;
+}
+
+.promotion-options {
+  display: flex;
+  gap: 20px;
+  font-size: 50px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.promotion-options div:hover {
+  transform: scale(1.2);
+  color: var(--accent2);
+}
+
+/* King in Check Highlight */
+.check-glow {
+    background: radial-gradient(circle, #ff0000 0%, var(--dark) 100%) !important;
+    animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: inset 0 0 10px #ff0000; }
+    50% { box-shadow: inset 0 0 30px #ff0000; }
+    100% { box-shadow: inset 0 0 10px #ff0000; }
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 950px) {
+    .app {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .layout {
+        /* Stack Sidebar below the board */
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .board {
+        /* Scale board to fit the screen width */
+        grid-template-columns: repeat(8, 11.5vw);
+        grid-template-rows: repeat(8, 11.5vw);
+        margin: 0 auto;
+    }
+
+    .square {
+        font-size: 7vw; /* Scale piece size with the board */
+    }
+
+    .panel {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .top h1 {
+        font-size: 24px;
+    }
+}
+
+/* TABLET/DESKTOP TWEAK */
+@media (min-width: 951px) {
+    .board {
+        /* Keep original size on big screens */
+        grid-template-columns: repeat(8, 72px);
+        grid-template-rows: repeat(8, 72px);
+    }
+}
+@media (max-width: 900px) {
+    .app {
+        width: 100%;
+        border-radius: 0; /* Full width on mobile looks cleaner */
+        padding: 15px;
+    }
+
+    .layout {
+        grid-template-columns: 1fr; /* Stack panel below board */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .board {
+        /* This magic math keeps the board square and responsive */
+        --sq-size: calc((100vw - 40px) / 8); 
+        grid-template-columns: repeat(8, var(--sq-size));
+        grid-template-rows: repeat(8, var(--sq-size));
+        width: calc(var(--sq-size) * 8);
+        height: calc(var(--sq-size) * 8);
+    }
+
+    .square {
+        font-size: calc(var(--sq-size) * 0.7); /* Piece scales with square */
+    }
+
+    .panel {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
